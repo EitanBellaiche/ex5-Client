@@ -51,16 +51,20 @@ header h1 {
     width: 17.031vw;
     height: 4.8vh;
     background-color: white;
-    display: flex;
-    align-items: flex-start; 
     justify-content: center;
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
     color: #000;
     text-align: center;
     margin-top: 5%;
 }
-
+.largeTextBox{
+    width: 17.031vw;
+    height: 14vh;
+    background-color: white;
+    display: flex; 
+    justify-content: center;
+    text-align: center;
+    margin-top: 5%;
+}
 .textBox input, .largeTextBox textarea {
     border: none;
     outline: none;
@@ -74,36 +78,19 @@ header h1 {
     text-align: right; 
     padding: 10px; 
 }
-
-.largeTextBox{
-    width: 17.031vw;
-    height: 14vh;
-    background-color: white;
-    display: flex;
-    align-items: flex-start; 
-    justify-content: center;
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    color: #000;
-    text-align: center;
-    margin-top: 5%;
-}
-
-.addButton {
-    width: 40px;
-    height: 40px;
-    background-color: #FF6347;
-    color: white;
+.addPlusButton {
+    width: 54px;
+    height: 54px;
+    background-image: url('../images/plus-button.png'); 
+    background-size: cover;
+    background-position: center;
     border: none;
-    border-radius: 50%;
-    font-size: 24px;
-    display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    margin-top: 10px;
+    background-color: transparent; 
+    margin-top: -2%;
 }
 
-.addButton:hover {
-    background-color: #e5533d;
-}
+
+
