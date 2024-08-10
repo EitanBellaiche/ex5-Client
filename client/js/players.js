@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const items = [];
+document.addEventListener('DOMContentLoaded', async function() {
+    const playerListContainer = document.querySelector('.itemListContainer');
 
     function addPlayerToList(player) {
         const itemLineWrapper = document.createElement('div');
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         itemTextDiv.className = 'itemText';
 
         const spanText = document.createElement('span');
-        spanText.textContent = player.text;
+        spanText.textContent = player.player_name || player.text;
 
         const editIcon = document.createElement('img');
         editIcon.src = 'images/edit-icon.png';
@@ -33,13 +33,20 @@ document.addEventListener('DOMContentLoaded', function() {
         itemLineWrapper.appendChild(itemTextDiv);
         itemLineWrapper.appendChild(itemLine);
 
-        document.querySelector('.itemListContainer').appendChild(itemLineWrapper);
+        playerListContainer.appendChild(itemLineWrapper);
     }
 
-    // הוספת שחקנים קיימים
-    items.forEach((item) => {
-        addPlayerToList(item);
-    });
+    // הבאת השחקנים מהדאטה בייס בעת טעינת הדף
+    try {
+        const response = await fetch('https://ex5-server.onrender.com/api/players');
+        const players = await response.json();
+
+        players.forEach(player => {
+            addPlayerToList(player);
+        });
+    } catch (error) {
+        console.error('Error fetching players:', error);
+    }
 
     // הוספת שחקן חדש עם לחיצה על כפתור ההוספה
     document.querySelector('.addPlusButton').addEventListener('click', async function(event) {
@@ -74,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 console.log('Success:', result);
-                addPlayerToList({ text: data.player_name, id: result.player_id }); // הוספת השחקן החדש עם הקו
+                addPlayerToList({ player_name: data.player_name }); // הוספת השחקן החדש עם הקו
                 alert(result.message);
                 form.reset();
             } else {
