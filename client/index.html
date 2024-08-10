@@ -18,21 +18,22 @@
         <main>
             <div class="contentWrapper">
                 <div class="centralBox">
-                    <form class="textBoxContainer">
+                    <form class="textBoxContainer" id="playerForm">
                         <div class="textBox">
-                            <input type="text" placeholder="הזנ/י כמות משחקים בעונה...">
+                            <input type="text" name="player_name" placeholder="type player name..." required>
                         </div>
                         <div class="textBox">
-                            <input type="text" placeholder=" הזנ/י כמות שערים בעונה...">
+                            <input type="number" name="goals" placeholder="type number of goals..." required>
                         </div>
                         <div class="textBox">
-                            <input type="text" placeholder="הזנ/י מספר כרטיסים אדומים בעונה...">
+                            <input type="number" name="match_played" placeholder="type number of match played..." required>
                         </div>
                         <div class="largeTextBox">
-                            <textarea placeholder="הזנ/י חוות דעת כללית על השחקן..."></textarea>
+                            <textarea name="description" placeholder="type player description..." required></textarea>
                         </div>
-                        <button type="button" class="addPlusButton"></button>
+                        <button type="submit" class="addPlusButton"></button>
                     </form>
+                    
                     <div class="imagePlaceholder"></div>
                     <div class="itemListContainer">
                         <div class="itemLineWrapper">

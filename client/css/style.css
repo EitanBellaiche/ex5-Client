@@ -45,7 +45,7 @@ header h1 {
     align-items: center;
     margin-top: 10%;
     margin-left: 3%;
-    direction: rtl; 
+    direction: ltr; 
 }
 
 .textBox {
@@ -76,7 +76,7 @@ header h1 {
     font-size: 16px;
     color: #000;
     background-color: transparent;
-    text-align: right; 
+    text-align: left; 
     padding: 10px; 
 }
 .addPlusButton {
@@ -124,6 +124,8 @@ header h1 {
 .itemText {
     position: relative;
     bottom: 30%;
+    display: flex;
+    justify-content: space-between;
     
 }
 .itemText span {
@@ -133,9 +135,6 @@ header h1 {
 .editIcon{
     height: 20px;
     width: 20px;
-    justify-content: baseline;
-    margin-left: 57%;
-}
-.trashIcon{
-    margin-left: 2%;
+    position: relative;
+    left: 27%;
 }
