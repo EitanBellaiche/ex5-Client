@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', async function() {
     const playerListContainer = document.querySelector('.itemListContainer');
+    let currentlyEditingPlayer = null; 
 
     function addPlayerToList(player) {
         const itemLineWrapper = document.createElement('div');
@@ -18,6 +19,15 @@ document.addEventListener('DOMContentLoaded', async function() {
         editIcon.src = 'images/edit-icon.png';
         editIcon.alt = 'Edit';
         editIcon.className = 'editIcon';
+        editIcon.addEventListener('click', function() {
+       
+            document.querySelector('input[name="player_name"]').value = player.player_name;
+            document.querySelector('input[name="player_goals"]').value = player.player_goals;
+            document.querySelector('input[name="player_match_played"]').value = player.player_match_played;
+            document.querySelector('textarea[name="player_description"]').value = player.player_description;
+
+            currentlyEditingPlayer = player; 
+        });
 
         const trashIcon = document.createElement('img');
         trashIcon.src = 'images/trash-icon.png';
@@ -80,36 +90,71 @@ document.addEventListener('DOMContentLoaded', async function() {
             player_description: formData.get('player_description')
         };
 
-        console.log('Sending data:', data);
-
-        try {
-            const response = await fetch('https://ex5-server.onrender.com/api/players/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            let result;
+        if (currentlyEditingPlayer) {
+        
+            data.old_name = currentlyEditingPlayer.player_name;
+            console.log('Updating player with data:', data);
             try {
-                result = await response.json();
-            } catch (e) {
-                result = await response.text();
-            }
+                const response = await fetch('https://ex5-server.onrender.com/api/players/update', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
 
-            if (response.ok) {
-                console.log('Success:', result);
-                addPlayerToList({ player_name: data.player_name, player_name: data.player_name }); 
-                alert(result.message);
-                form.reset();
-            } else {
-                console.error('Server error:', result);
-                alert(result.message || 'Failed to process the request.');
+                let result;
+                try {
+                    result = await response.json();
+                } catch (e) {
+                    result = await response.text();
+                }
+
+                if (response.ok) {
+                    console.log('Player updated successfully:', result);
+                    alert(result.message);
+                    currentlyEditingPlayer = null;
+                    form.reset();
+                } else {
+                    console.error('Server error (response):', result); 
+                    alert(result.message || 'Failed to process the request.');
+                }                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to update player.');
             }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Failed to add player.');
+        } else {
+            console.log('Sending data:', data);
+
+            try {
+                const response = await fetch('https://ex5-server.onrender.com/api/players/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                let result;
+                try {
+                    result = await response.json();
+                } catch (e) {
+                    result = await response.text();
+                }
+
+                if (response.ok) {
+                    console.log('Success:', result);
+                    addPlayerToList({ player_name: data.player_name, player_name: data.player_name }); 
+                    alert(result.message);
+                    form.reset();
+                } else {
+                    console.error('Server error:', result);
+                    alert(result.message || 'Failed to process the request.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to add player.');
+            }
         }
     });
 });
