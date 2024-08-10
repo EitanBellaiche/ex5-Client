@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     function addPlayerToList(player) {
         const itemLineWrapper = document.createElement('div');
         itemLineWrapper.className = 'itemLineWrapper';
+        itemLineWrapper.dataset.playerId = player.player_id;
 
         const itemTextDiv = document.createElement('div');
         itemTextDiv.className = 'itemText';
@@ -23,6 +24,24 @@ document.addEventListener('DOMContentLoaded', async function() {
         trashIcon.src = 'images/trash-icon.png';
         trashIcon.alt = 'Delete';
         trashIcon.className = 'trashIcon';
+        trashIcon.addEventListener('click', async function() {
+            const playerId = player.id;
+            try {
+                const response = await fetch(`https://ex5-server.onrender.com/api/players/${playerId}`, {
+                    method: 'DELETE'
+                });
+                if (response.ok) {
+                    itemLineWrapper.remove(); 
+                    alert('Player deleted successfully.');
+                } else {
+                    console.error('Failed to delete player.');
+                    alert('Failed to delete player.');
+                }
+            } catch (error) {
+                console.error('Error deleting player:', error);
+                alert('Error deleting player.');
+            }
+        });
 
         iconsWrapper.appendChild(editIcon);
         iconsWrapper.appendChild(trashIcon);
@@ -82,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             if (response.ok) {
                 console.log('Success:', result);
-                addPlayerToList({ player_name: data.player_name }); 
+                addPlayerToList({ player_name: data.player_name, id: result.player_id });
                 alert(result.message);
                 form.reset();
             } else {
