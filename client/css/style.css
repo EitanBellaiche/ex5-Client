@@ -38,7 +38,7 @@ header h1 {
 
 .textBoxContainer {
     width: 18.854vw;
-    height: 37.8vh;
+    height: 39.8vh;
     background-color: #0e2131;
     display: flex;
     flex-direction: column;
@@ -59,7 +59,7 @@ header h1 {
 }
 .largeTextBox{
     width: 17.031vw;
-    height: 14vh;
+    height: 16vh;
     background-color: white;
     display: flex; 
     justify-content: center;
@@ -101,5 +101,22 @@ header h1 {
     box-sizing: border-box;
     margin-left: 10%;
 }
-
-
+.itemListContainer{
+    width: 18.854vw;
+    height: 39.8vh;
+    background-color: #0e2131;
+    margin-top: 10%;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    justify-content: flex-start; 
+    padding-top: 3.5%; 
+    padding-bottom: 2%; 
+}
+.itemLine {
+    width: 100%; 
+    border-top: 2px solid #FFFFFF;     
+    box-sizing: border-box;
+    margin-bottom: 15%; 
+}
