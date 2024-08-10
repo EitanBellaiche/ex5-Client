@@ -111,12 +111,31 @@ header h1 {
     flex-direction: column;
     box-sizing: border-box;
     justify-content: flex-start; 
-    padding-top: 3.5%; 
-    padding-bottom: 2%; 
+    justify-content: space-around;
+    padding-top: 2%; 
+    padding-bottom: 20%; 
 }
 .itemLine {
     width: 100%; 
     border-top: 2px solid #FFFFFF;     
     box-sizing: border-box;
-    margin-bottom: 15%; 
+    margin-bottom: 6%; 
+}
+.itemText {
+    position: relative;
+    bottom: 30%;
+    
+}
+.itemText span {
+    color: #FFFFFF;
+    font-size: 16px;
+}
+.editIcon{
+    height: 20px;
+    width: 20px;
+    justify-content: baseline;
+    margin-left: 57%;
+}
+.trashIcon{
+    margin-left: 2%;
 }
