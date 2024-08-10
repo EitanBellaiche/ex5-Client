@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     function addPlayerToList(player) {
         const itemLineWrapper = document.createElement('div');
         itemLineWrapper.className = 'itemLineWrapper';
-        itemLineWrapper.dataset.playerId = player.player_id;
 
         const itemTextDiv = document.createElement('div');
         itemTextDiv.className = 'itemText';
@@ -25,9 +24,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         trashIcon.alt = 'Delete';
         trashIcon.className = 'trashIcon';
         trashIcon.addEventListener('click', async function() {
-            const playerId = player.id;
+            const playerName = player.player_name; 
             try {
-                const response = await fetch(`https://ex5-server.onrender.com/api/players/${playerId}`, {
+                const response = await fetch(`https://ex5-server.onrender.com/api/players/${encodeURIComponent(playerName)}`, {
                     method: 'DELETE'
                 });
                 if (response.ok) {
@@ -101,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             if (response.ok) {
                 console.log('Success:', result);
-                addPlayerToList({ player_name: data.player_name, id: result.player_id });
+                addPlayerToList({ player_name: data.player_name, player_name: data.player_name }); 
                 alert(result.message);
                 form.reset();
             } else {
