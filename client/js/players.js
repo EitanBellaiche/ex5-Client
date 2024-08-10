@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         const spanText = document.createElement('span');
         spanText.textContent = player.player_name || player.text;
 
+        const iconsWrapper = document.createElement('div');
+        iconsWrapper.className = 'iconsWrapper';
+
         const editIcon = document.createElement('img');
         editIcon.src = 'images/edit-icon.png';
         editIcon.alt = 'Edit';
@@ -21,22 +24,21 @@ document.addEventListener('DOMContentLoaded', async function() {
         trashIcon.alt = 'Delete';
         trashIcon.className = 'trashIcon';
 
-        itemTextDiv.appendChild(spanText);
-        itemTextDiv.appendChild(editIcon);
-        itemTextDiv.appendChild(trashIcon);
+        iconsWrapper.appendChild(editIcon);
+        iconsWrapper.appendChild(trashIcon);
 
-        // יצירת הקו האופקי
+        itemTextDiv.appendChild(spanText);
+        itemTextDiv.appendChild(iconsWrapper);
+
         const itemLine = document.createElement('div');
         itemLine.className = 'itemLine';
 
-        // הוספת השחקן והאייקונים ולאחר מכן את הקו
         itemLineWrapper.appendChild(itemTextDiv);
         itemLineWrapper.appendChild(itemLine);
 
         playerListContainer.appendChild(itemLineWrapper);
     }
 
-    // הבאת השחקנים מהדאטה בייס בעת טעינת הדף
     try {
         const response = await fetch('https://ex5-server.onrender.com/api/players');
         const players = await response.json();
@@ -48,7 +50,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.error('Error fetching players:', error);
     }
 
-    // הוספת שחקן חדש עם לחיצה על כפתור ההוספה
     document.querySelector('.addPlusButton').addEventListener('click', async function(event) {
         event.preventDefault();
 
@@ -81,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             if (response.ok) {
                 console.log('Success:', result);
-                addPlayerToList({ player_name: data.player_name }); // הוספת השחקן החדש עם הקו
+                addPlayerToList({ player_name: data.player_name }); 
                 alert(result.message);
                 form.reset();
             } else {

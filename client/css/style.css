@@ -125,15 +125,20 @@ header h1 {
     bottom: 30%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     
 }
 .itemText span {
     color: #FFFFFF;
     font-size: 16px;
 }
-.editIcon{
-    height: 20px;
+.editIcon, .trashIcon {
     width: 20px;
-    position: relative;
-    left: 27%;
+    height: 20px;
+    cursor: pointer;
+}
+.iconsWrapper {
+    display: flex;
+    gap: 30%;
+    margin-right: 5%;
 }
