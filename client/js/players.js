@@ -1,11 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const items = [
-        { text: "Name of player 1", id: 1 },
-        { text: "Name of player 2", id: 2 },
-        { text: "Name of player 3", id: 3 },
-        { text: "Name of player 4", id: 4 },
-        { text: "Name of player 5", id: 5 }
-    ];
+    const items = [];
 
     function addPlayerToList(player) {
         const itemLineWrapper = document.createElement('div');
@@ -31,14 +25,23 @@ document.addEventListener('DOMContentLoaded', function() {
         itemTextDiv.appendChild(editIcon);
         itemTextDiv.appendChild(trashIcon);
 
+        // יצירת הקו האופקי
+        const itemLine = document.createElement('div');
+        itemLine.className = 'itemLine';
+
+        // הוספת השחקן והאייקונים ולאחר מכן את הקו
         itemLineWrapper.appendChild(itemTextDiv);
+        itemLineWrapper.appendChild(itemLine);
+
         document.querySelector('.itemListContainer').appendChild(itemLineWrapper);
     }
 
+    // הוספת שחקנים קיימים
     items.forEach((item) => {
         addPlayerToList(item);
     });
 
+    // הוספת שחקן חדש עם לחיצה על כפתור ההוספה
     document.querySelector('.addPlusButton').addEventListener('click', async function(event) {
         event.preventDefault();
 
@@ -71,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 console.log('Success:', result);
-                addPlayerToList({ text: data.player_name, id: result.player_id });
+                addPlayerToList({ text: data.player_name, id: result.player_id }); // הוספת השחקן החדש עם הקו
                 alert(result.message);
                 form.reset();
             } else {
