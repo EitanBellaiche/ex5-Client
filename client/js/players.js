@@ -1,6 +1,23 @@
 document.addEventListener('DOMContentLoaded', async function() {
     const playerListContainer = document.querySelector('.itemListContainer');
+    const imageElement = document.getElementById('randomImage');
     let currentlyEditingPlayer = null; 
+
+
+    async function fetchRandomImage() {
+        try {
+            const response = await fetch('https://picsum.photos/300/300');
+            imageElement.src = response.url;
+        } catch (error) {
+            console.error('Error fetching random image:', error);
+        }
+    }
+
+
+    fetchRandomImage();
+
+   
+    setInterval(fetchRandomImage, 10000);
 
     function addPlayerToList(player) {
         const itemLineWrapper = document.createElement('div');
@@ -20,7 +37,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         editIcon.alt = 'Edit';
         editIcon.className = 'editIcon';
         editIcon.addEventListener('click', function() {
-       
             document.querySelector('input[name="player_name"]').value = player.player_name;
             document.querySelector('input[name="player_goals"]').value = player.player_goals;
             document.querySelector('input[name="player_match_played"]').value = player.player_match_played;
@@ -91,7 +107,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         };
 
         if (currentlyEditingPlayer) {
-        
             data.old_name = currentlyEditingPlayer.player_name;
             console.log('Updating player with data:', data);
             try {

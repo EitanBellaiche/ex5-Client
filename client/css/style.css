@@ -142,3 +142,11 @@ header h1 {
     gap: 30%;
     margin-right: 5%;
 }
+#randomImage {
+    width: 15vw;
+    height: 41vh;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+}
+
